@@ -8,9 +8,9 @@ export const normalizeSize = (size) => ({
   code: size.multiplier ? sizes[size.multiplier] : "",
 });
 
-export const normalizeSauce = (souse) => ({
-  ...souse,
-  code: sauces[souse.id],
+export const normalizeSauce = (sauce) => ({
+  ...sauce,
+  code: sauces[sauce.id],
 });
 
 export const normalizeFilling = (fillingItem) => ({
