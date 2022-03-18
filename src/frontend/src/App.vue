@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="main">
+    <div v-if="false" class="main">
       <div class="main__wrapper">
         <div class="main__header">
           <img
@@ -18,12 +18,16 @@
         </p>
       </div>
     </div>
+    <Index />
   </div>
 </template>
 
 <script>
+import Index from "@/views/Index.vue";
+
 export default {
   name: "App",
+  components: { Index },
 };
 </script>
 
