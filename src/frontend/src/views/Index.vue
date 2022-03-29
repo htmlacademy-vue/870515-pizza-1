@@ -103,27 +103,7 @@
                         {{ ingredient.name }}
                       </span>
 
-                      <div class="counter ingredients__counter">
-                        <button
-                          type="button"
-                          class="counter__button counter__button--minus"
-                          disabled
-                        >
-                          <span class="visually-hidden">Меньше</span>
-                        </button>
-                        <input
-                          type="text"
-                          name="counter"
-                          class="counter__input"
-                          value="0"
-                        />
-                        <button
-                          type="button"
-                          class="counter__button counter__button--plus"
-                        >
-                          <span class="visually-hidden">Больше</span>
-                        </button>
-                      </div>
+                      <ItemCounter :value="0" class="ingredients__counter" />
                     </li>
                   </ul>
                 </div>
@@ -172,9 +152,11 @@ import {
   normalizeFilling,
   normalizeDough,
 } from "@/common/helpers/pizzaHelper";
+import ItemCounter from "@/modules/ui/ItemCounter.vue";
 
 export default {
   name: "Index",
+  components: { ItemCounter },
   data: () => ({ misc, pizza, user }),
   computed: {
     sizes() {
