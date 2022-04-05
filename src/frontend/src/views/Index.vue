@@ -31,6 +31,8 @@
               <div class="sheet__content dough">
                 <selector-item
                   v-for="doughItem in dough"
+                  v-model="selectedDough"
+                  :value="doughItem.id"
                   :class="`dough__input dough__input--${doughItem.code}`"
                   :description="doughItem.description"
                   :label="doughItem.name"
@@ -39,6 +41,7 @@
                 />
               </div>
             </div>
+            <span>tawdaw: {{ selectedDough }}</span>
           </div>
 
           <div class="content__diameter">
@@ -148,7 +151,14 @@ import SelectorItem from "@/modules/ui/SelectorItem.vue";
 export default {
   name: "Index",
   components: { ItemCounter, SelectorItem },
-  data: () => ({ misc, pizza, user, ingredientsCounter: 0 }),
+  data: () => ({
+    misc,
+    pizza,
+    user,
+    ingredientsCounter: 0,
+    selectedDough: [],
+    selectedSize: null,
+  }),
   computed: {
     sizes() {
       return this.pizza.sizes.map((size) => normalizeSize(size));

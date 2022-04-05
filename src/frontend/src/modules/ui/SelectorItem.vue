@@ -2,8 +2,11 @@
   <label>
     <input
       :value="value"
+      :id="value"
+      :name="name"
+      :checked="checked"
+      @change="log"
       type="radio"
-      name="diameter"
       class="visually-hidden"
     />
     <component :is="description ? 'b' : 'span'">{{ label }}</component>
@@ -14,6 +17,10 @@
 <script>
 export default {
   name: "ItemCounter",
+  model: {
+    prop: "checked",
+    event: "change",
+  },
   props: {
     label: {
       type: String,
@@ -27,7 +34,17 @@ export default {
       type: String,
     },
     value: {
-      type: [Array, String],
+      type: [String, Number],
+    },
+    checked: {
+      type: [Array, Boolean],
+    },
+  },
+  methods: {
+    log(event) {
+      // TODO: как получить новое значение ?
+      console.log(event);
+      // this.$emit('change')
     },
   },
 };
