@@ -29,21 +29,14 @@
               <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
               <div class="sheet__content dough">
-                <label
+                <selector-item
                   v-for="doughItem in dough"
                   :class="`dough__input dough__input--${doughItem.code}`"
+                  :description="doughItem.description"
+                  :label="doughItem.name"
                   :key="doughItem.id"
-                >
-                  <input
-                    type="radio"
-                    name="dought"
-                    :value="doughItem.code"
-                    class="visually-hidden"
-                    checked
-                  />
-                  <b>{{ doughItem.name }}</b>
-                  <span>{{ doughItem.description }}</span>
-                </label>
+                  name="dought"
+                />
               </div>
             </div>
           </div>
@@ -53,19 +46,13 @@
               <h2 class="title title--small sheet__title">Выберите размер</h2>
 
               <div class="sheet__content diameter">
-                <label
+                <selector-item
                   v-for="size in sizes"
                   :class="`diameter__input diameter__input--${size.code}`"
+                  :label="size.name"
                   :key="size.id"
-                >
-                  <input
-                    :value="size.code"
-                    type="radio"
-                    name="diameter"
-                    class="visually-hidden"
-                  />
-                  <span>{{ size.name }}</span>
-                </label>
+                  name="diameter"
+                />
               </div>
             </div>
           </div>
@@ -103,7 +90,10 @@
                         {{ ingredient.name }}
                       </span>
 
-                      <ItemCounter :value="0" class="ingredients__counter" />
+                      <ItemCounter
+                        v-model="ingredientsCounter"
+                        class="ingredients__counter"
+                      />
                     </li>
                   </ul>
                 </div>
@@ -153,11 +143,12 @@ import {
   normalizeDough,
 } from "@/common/helpers/pizzaHelper";
 import ItemCounter from "@/modules/ui/ItemCounter.vue";
+import SelectorItem from "@/modules/ui/SelectorItem.vue";
 
 export default {
   name: "Index",
-  components: { ItemCounter },
-  data: () => ({ misc, pizza, user }),
+  components: { ItemCounter, SelectorItem },
+  data: () => ({ misc, pizza, user, ingredientsCounter: 0 }),
   computed: {
     sizes() {
       return this.pizza.sizes.map((size) => normalizeSize(size));
