@@ -1,11 +1,9 @@
 <template>
   <label>
     <input
-      :value="value"
-      :id="value"
+      v-model="valueProxy"
       :name="name"
-      :checked="checked"
-      @change="log"
+      :value="value"
       type="radio"
       class="visually-hidden"
     />
@@ -18,8 +16,8 @@
 export default {
   name: "ItemCounter",
   model: {
-    prop: "checked",
-    event: "change",
+    prop: "value-model",
+    event: "input",
   },
   props: {
     label: {
@@ -36,15 +34,18 @@ export default {
     value: {
       type: [String, Number],
     },
-    checked: {
-      type: [Array, Boolean],
+    valueModel: {
+      type: [String, Number],
     },
   },
-  methods: {
-    log(event) {
-      // TODO: как получить новое значение ?
-      console.log(event);
-      // this.$emit('change')
+  computed: {
+    valueProxy: {
+      get() {
+        return this.valueModel;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
     },
   },
 };

@@ -41,7 +41,6 @@
                 />
               </div>
             </div>
-            <span>tawdaw: {{ selectedDough }}</span>
           </div>
 
           <div class="content__diameter">
@@ -51,7 +50,9 @@
               <div class="sheet__content diameter">
                 <selector-item
                   v-for="size in sizes"
+                  v-model="selectedSize"
                   :class="`diameter__input diameter__input--${size.code}`"
+                  :value="size.id"
                   :label="size.name"
                   :key="size.id"
                   name="diameter"
@@ -156,7 +157,7 @@ export default {
     pizza,
     user,
     ingredientsCounter: 0,
-    selectedDough: [],
+    selectedDough: null,
     selectedSize: null,
   }),
   computed: {
