@@ -71,14 +71,15 @@
                 <div class="ingredients__sauce">
                   <p>Основной соус:</p>
 
-                  <label
+                  <radio-button
                     v-for="sauce in sauces"
+                    v-model="selectedSauce"
+                    :value="sauce.code"
+                    :label="sauce.name"
                     :key="sauce.id"
-                    class="radio ingredients__input"
-                  >
-                    <input type="radio" name="sauce" :value="sauce.code" />
-                    <span>{{ sauce.name }}</span>
-                  </label>
+                    class="ingredients__input"
+                    name="sauce"
+                  />
                 </div>
 
                 <div class="ingredients__filling">
@@ -146,12 +147,13 @@ import {
   normalizeFilling,
   normalizeDough,
 } from "@/common/helpers/pizzaHelper";
-import ItemCounter from "@/modules/ui/ItemCounter.vue";
-import SelectorItem from "@/modules/ui/SelectorItem.vue";
+import ItemCounter from "@/modules/ui/components/ItemCounter.vue";
+import SelectorItem from "@/modules/ui/components/SelectorItem.vue";
+import RadioButton from "@/modules/ui/components/RadioButton.vue";
 
 export default {
   name: "Index",
-  components: { ItemCounter, SelectorItem },
+  components: { ItemCounter, SelectorItem, RadioButton },
   data: () => ({
     misc,
     pizza,
@@ -159,6 +161,7 @@ export default {
     ingredientsCounter: 0,
     selectedDough: null,
     selectedSize: null,
+    selectedSauce: null,
   }),
   computed: {
     sizes() {

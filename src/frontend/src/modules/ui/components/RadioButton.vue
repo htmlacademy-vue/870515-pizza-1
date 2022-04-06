@@ -1,20 +1,13 @@
 <template>
-  <label>
-    <input
-      v-model="valueProxy"
-      :name="name"
-      :value="value"
-      type="radio"
-      class="visually-hidden"
-    />
-    <component :is="description ? 'b' : 'span'">{{ label }}</component>
-    <span v-if="description">{{ description }}</span>
+  <label class="radio">
+    <input v-model="valueProxy" :name="name" :value="value" type="radio" />
+    <span>{{ label }}</span>
   </label>
 </template>
 
 <script>
 export default {
-  name: "ItemCounter",
+  name: "RadioButton",
   model: {
     prop: "value-model",
     event: "input",
@@ -27,9 +20,6 @@ export default {
     name: {
       type: String,
       required: true,
-    },
-    description: {
-      type: String,
     },
     value: {
       type: [String, Number],
