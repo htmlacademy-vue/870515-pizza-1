@@ -24,87 +24,14 @@
         <div class="content__wrapper">
           <h1 class="title title--big">Конструктор пиццы</h1>
 
-          <div class="content__dough">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">Выберите тесто</h2>
-
-              <div class="sheet__content dough">
-                <selector-item
-                  v-for="doughItem in dough"
-                  v-model="selectedDough"
-                  :value="doughItem.id"
-                  :class="`dough__input dough__input--${doughItem.code}`"
-                  :description="doughItem.description"
-                  :label="doughItem.name"
-                  :key="doughItem.id"
-                  name="dought"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="content__diameter">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">Выберите размер</h2>
-
-              <div class="sheet__content diameter">
-                <selector-item
-                  v-for="size in sizes"
-                  v-model="selectedSize"
-                  :class="`diameter__input diameter__input--${size.code}`"
-                  :value="size.id"
-                  :label="size.name"
-                  :key="size.id"
-                  name="diameter"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="content__ingredients">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">
-                Выберите ингредиенты
-              </h2>
-
-              <div class="sheet__content ingredients">
-                <div class="ingredients__sauce">
-                  <p>Основной соус:</p>
-
-                  <radio-button
-                    v-for="sauce in sauces"
-                    v-model="selectedSauce"
-                    :value="sauce.code"
-                    :label="sauce.name"
-                    :key="sauce.id"
-                    class="ingredients__input"
-                    name="sauce"
-                  />
-                </div>
-
-                <div class="ingredients__filling">
-                  <p>Начинка:</p>
-
-                  <ul class="ingredients__list">
-                    <li
-                      v-for="ingredient in filling"
-                      :key="ingredient.id"
-                      class="ingredients__item"
-                    >
-                      <span :class="`filling filling--${ingredient.code}`">
-                        {{ ingredient.name }}
-                      </span>
-
-                      <ItemCounter
-                        v-model="ingredientsCounter"
-                        class="ingredients__counter"
-                      />
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <builder-dough-selector v-model="selectedDough" :dough="dough" />
+          <builder-size-selector v-model="selectedSize" :sizes="sizes" />
+          <builder-ingredients-selector
+            :ingredients.sync="selectedIngredients"
+            :sauce.sync="selectedSauce"
+            :sauces="sauces"
+            :filling="filling"
+          />
 
           <div class="content__pizza">
             <label class="input">
@@ -117,13 +44,12 @@
             </label>
 
             <div class="content__constructor">
-              <div class="pizza pizza--foundation--big-tomato">
-                <div class="pizza__wrapper">
-                  <div class="pizza__filling pizza__filling--ananas"></div>
-                  <div class="pizza__filling pizza__filling--bacon"></div>
-                  <div class="pizza__filling pizza__filling--cheddar"></div>
-                </div>
-              </div>
+              <builder-pizza-view
+                :dough="selectedDough"
+                :size="selectedSize"
+                :sauce="selectedSauce"
+                :ingredients="selectedIngredients"
+              />
             </div>
 
             <div class="content__result">
@@ -147,22 +73,33 @@ import {
   normalizeFilling,
   normalizeDough,
 } from "@/common/helpers/pizzaHelper";
-import ItemCounter from "@/modules/ui/components/ItemCounter.vue";
-import SelectorItem from "@/modules/ui/components/SelectorItem.vue";
-import RadioButton from "@/modules/ui/components/RadioButton.vue";
+import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
+import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
+import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
+import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 
 export default {
   name: "Index",
-  components: { ItemCounter, SelectorItem, RadioButton },
+  components: {
+    BuilderIngredientsSelector,
+    BuilderSizeSelector,
+    BuilderDoughSelector,
+    BuilderPizzaView,
+  },
   data: () => ({
     misc,
     pizza,
     user,
-    ingredientsCounter: 0,
     selectedDough: null,
     selectedSize: null,
     selectedSauce: null,
+    selectedIngredients: [],
   }),
+  created() {
+    [this.selectedDough] = this.dough;
+    [this.selectedSauce] = this.sauces;
+    [this.selectedSize] = this.sizes;
+  },
   computed: {
     sizes() {
       return this.pizza.sizes.map((size) => normalizeSize(size));

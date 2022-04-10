@@ -11,6 +11,7 @@
           :description="doughItem.description"
           :label="doughItem.name"
           :key="doughItem.id"
+          :value-model="value ? value.code : null"
           @input="$emit('input', doughItem)"
           name="dought"
         />

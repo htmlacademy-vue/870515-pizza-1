@@ -3,7 +3,7 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
-      @click="$emit('input', value - 1)"
+      @click="onRemove"
       :disabled="value === 0"
     >
       <span class="visually-hidden">Меньше</span>
@@ -18,7 +18,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
-      @click="$emit('input', value + 1)"
+      @click="onAdd"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -31,6 +31,20 @@ export default {
   props: {
     value: {
       type: Number,
+    },
+  },
+  methods: {
+    onRemove() {
+      const newValue = this.value - 1;
+
+      this.$emit("remove", newValue);
+      this.$emit("input", newValue);
+    },
+    onAdd() {
+      const newValue = this.value + 1;
+
+      this.$emit("add", newValue);
+      this.$emit("input", newValue);
     },
   },
 };

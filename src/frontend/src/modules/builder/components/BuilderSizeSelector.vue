@@ -7,9 +7,10 @@
         <selector-item
           v-for="size in sizes"
           :class="`diameter__input diameter__input--${size.code}`"
-          :value="size.id"
+          :value="size.code"
           :label="size.name"
           :key="size.id"
+          :value-model="value ? value.code : null"
           @input="$emit('input', size)"
           name="diameter"
         />

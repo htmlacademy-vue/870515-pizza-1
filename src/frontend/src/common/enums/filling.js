@@ -10,6 +10,7 @@ export default {
   9: "jalapeno",
   10: "olives",
   11: "tomatoes",
+  12: "salmon",
   13: "mozzarella",
   14: "parmesan",
   15: "blue_cheese",
