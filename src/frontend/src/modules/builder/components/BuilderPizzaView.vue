@@ -38,14 +38,6 @@ export default {
   },
 
   computed: {
-    foundationClass() {
-      if (!this.sauce || !this.dough) {
-        return;
-      }
-
-      return {};
-    },
-
     uniqueIngredients() {
       return uniqBy(this.ingredients, "id");
     },
