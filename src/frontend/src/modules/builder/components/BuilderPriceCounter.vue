@@ -1,8 +1,10 @@
 <template>
-  <span>{{ cost }} ₽</span>
+  <span>{{ price }} ₽</span>
 </template>
 
 <script>
+import { calcPizzaPrice } from "@/common/helpers/pizzaHelper";
+
 export default {
   name: "BuilderPriceCounter",
   props: {
@@ -16,26 +18,13 @@ export default {
   },
 
   computed: {
-    cost() {
-      let cost = 0;
-
-      if (this.dough) {
-        cost += this.dough.price;
-      }
-
-      if (this.sauce) {
-        cost += this.sauce.price;
-      }
-
-      this.ingredients.forEach((ingredient) => {
-        cost += ingredient.price;
+    price() {
+      return calcPizzaPrice({
+        dough: this.dough,
+        size: this.size,
+        sauce: this.sauce,
+        ingredients: this.ingredients,
       });
-
-      if (this.size) {
-        cost *= this.size.multiplier;
-      }
-
-      return cost;
     },
   },
 };

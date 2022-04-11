@@ -22,3 +22,27 @@ export const normalizeDough = (doughItem) => ({
   ...doughItem,
   code: dough[doughItem.id],
 });
+
+export const calcPizzaPrice = ({ dough, sauce, ingredients, size }) => {
+  let price = 0;
+
+  if (dough) {
+    price += dough.price;
+  }
+
+  if (sauce) {
+    price += sauce.price;
+  }
+
+  if (Array.isArray(ingredients)) {
+    ingredients.forEach((ingredient) => {
+      price += ingredient.price;
+    });
+  }
+
+  if (size) {
+    price *= size.multiplier;
+  }
+
+  return price;
+};

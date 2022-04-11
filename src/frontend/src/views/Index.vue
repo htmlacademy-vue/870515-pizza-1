@@ -1,74 +1,59 @@
 <template>
-  <div>
-    <header class="header">
-      <div class="header__logo">
-        <a href="#" class="logo">
-          <img
-            src="../assets/img/logo.svg"
-            alt="V!U!E! Pizza logo"
-            width="90"
-            height="40"
+  <form action="#" method="post">
+    <div class="content__wrapper">
+      <h1 class="title title--big">Конструктор пиццы</h1>
+
+      <builder-dough-selector v-model="selectedDough" :dough="dough" />
+      <builder-size-selector v-model="selectedSize" :sizes="sizes" />
+      <builder-ingredients-selector
+        :ingredients.sync="selectedIngredients"
+        :sauce.sync="selectedSauce"
+        :sauces="sauces"
+        :filling="filling"
+      />
+
+      <div class="content__pizza">
+        <label class="input">
+          <span class="visually-hidden">Название пиццы</span>
+          <input
+            v-model="name"
+            type="text"
+            name="pizza_name"
+            placeholder="Введите название пиццы"
           />
-        </a>
-      </div>
-      <div class="header__cart">
-        <a href="#">0 ₽</a>
-      </div>
-      <div class="header__user">
-        <a href="#" class="header__login"><span>Войти</span></a>
-      </div>
-    </header>
+        </label>
 
-    <main class="content">
-      <form action="#" method="post">
-        <div class="content__wrapper">
-          <h1 class="title title--big">Конструктор пиццы</h1>
-
-          <builder-dough-selector v-model="selectedDough" :dough="dough" />
-          <builder-size-selector v-model="selectedSize" :sizes="sizes" />
-          <builder-ingredients-selector
-            :ingredients.sync="selectedIngredients"
-            :sauce.sync="selectedSauce"
-            :sauces="sauces"
-            :filling="filling"
+        <div class="content__constructor">
+          <builder-pizza-view
+            :dough="selectedDough"
+            :size="selectedSize"
+            :sauce="selectedSauce"
+            :ingredients="selectedIngredients"
           />
-
-          <div class="content__pizza">
-            <label class="input">
-              <span class="visually-hidden">Название пиццы</span>
-              <input
-                type="text"
-                name="pizza_name"
-                placeholder="Введите название пиццы"
-              />
-            </label>
-
-            <div class="content__constructor">
-              <builder-pizza-view
-                :dough="selectedDough"
-                :size="selectedSize"
-                :sauce="selectedSauce"
-                :ingredients="selectedIngredients"
-              />
-            </div>
-
-            <div class="content__result">
-              <p>
-                Итого:
-                <builder-price-counter
-                  :dough="selectedDough"
-                  :size="selectedSize"
-                  :sauce="selectedSauce"
-                  :ingredients="selectedIngredients"
-                />
-              </p>
-              <button type="button" class="button" disabled>Готовьте!</button>
-            </div>
-          </div>
         </div>
-      </form>
-    </main>
-  </div>
+
+        <div class="content__result">
+          <p>
+            Итого:
+            <builder-price-counter
+              :dough="selectedDough"
+              :size="selectedSize"
+              :sauce="selectedSauce"
+              :ingredients="selectedIngredients"
+            />
+          </p>
+          <button
+            @click="addToCart"
+            type="button"
+            class="button"
+            :disabled="!name || selectedIngredients.length === 0"
+          >
+            Готовьте!
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -100,6 +85,7 @@ export default {
     misc,
     pizza,
     user,
+    name: "",
     selectedDough: null,
     selectedSize: null,
     selectedSauce: null,
@@ -124,7 +110,17 @@ export default {
       return this.pizza.dough.map((dough) => normalizeDough(dough));
     },
   },
-  methods: {},
+  methods: {
+    addToCart() {
+      this.$emit("addToCart", {
+        name: this.name,
+        size: this.selectedSize,
+        dough: this.selectedDough,
+        sauce: this.selectedSauce,
+        ingredients: this.selectedIngredients,
+      });
+    },
+  },
 };
 </script>
 
