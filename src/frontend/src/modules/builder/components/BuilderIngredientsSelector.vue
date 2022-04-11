@@ -28,9 +28,11 @@
               :key="ingredient.id"
               class="ingredients__item"
             >
-              <span :class="`filling filling--${ingredient.code}`">
-                {{ ingredient.name }}
-              </span>
+              <app-drag :transfer-data="ingredient">
+                <span :class="`filling filling--${ingredient.code}`">
+                  {{ ingredient.name }}
+                </span>
+              </app-drag>
 
               <item-counter
                 :value="calcIngredientsCount(ingredient)"
@@ -47,11 +49,12 @@
 </template>
 
 <script>
-import ItemCounter from "@/modules/ui/components/ItemCounter";
-import RadioButton from "@/modules/ui/components/RadioButton";
+import ItemCounter from "@/common/components/ItemCounter";
+import RadioButton from "@/common/components/RadioButton";
+import AppDrag from "@/common/components/AppDrag";
 export default {
   name: "BuilderIngredientsSelector",
-  components: { RadioButton, ItemCounter },
+  components: { AppDrag, RadioButton, ItemCounter },
   props: {
     sauce: {
       type: Object,

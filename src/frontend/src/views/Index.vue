@@ -24,12 +24,14 @@
         </label>
 
         <div class="content__constructor">
-          <builder-pizza-view
-            :dough="selectedDough"
-            :size="selectedSize"
-            :sauce="selectedSauce"
-            :ingredients="selectedIngredients"
-          />
+          <app-drop @drop="selectedIngredients.push($event)">
+            <builder-pizza-view
+              :dough="selectedDough"
+              :size="selectedSize"
+              :sauce="selectedSauce"
+              :ingredients="selectedIngredients"
+            />
+          </app-drop>
         </div>
 
         <div class="content__result">
@@ -71,6 +73,7 @@ import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelecto
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
 import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
+import AppDrop from "@/common/components/AppDrop";
 
 export default {
   name: "Index",
@@ -80,6 +83,7 @@ export default {
     BuilderDoughSelector,
     BuilderPizzaView,
     BuilderPriceCounter,
+    AppDrop,
   },
   data: () => ({
     misc,

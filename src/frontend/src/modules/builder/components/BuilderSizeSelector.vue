@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import SelectorItem from "@/modules/ui/components/SelectorItem.vue";
+import SelectorItem from "@/common/components/SelectorItem.vue";
 
 export default {
   name: "BuilderSizeSelector",
