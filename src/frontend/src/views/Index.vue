@@ -53,7 +53,15 @@
             </div>
 
             <div class="content__result">
-              <p>Итого: 0 ₽</p>
+              <p>
+                Итого:
+                <builder-price-counter
+                  :dough="selectedDough"
+                  :size="selectedSize"
+                  :sauce="selectedSauce"
+                  :ingredients="selectedIngredients"
+                />
+              </p>
               <button type="button" class="button" disabled>Готовьте!</button>
             </div>
           </div>
@@ -77,6 +85,7 @@ import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelec
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
 import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
+import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 
 export default {
   name: "Index",
@@ -85,6 +94,7 @@ export default {
     BuilderSizeSelector,
     BuilderDoughSelector,
     BuilderPizzaView,
+    BuilderPriceCounter,
   },
   data: () => ({
     misc,
