@@ -101,16 +101,16 @@ export default {
   },
   computed: {
     sizes() {
-      return this.pizza.sizes.map((size) => normalizeSize(size));
+      return this.pizza.sizes.map(normalizeSize);
     },
     sauces() {
-      return this.pizza.sauces.map((sauce) => normalizeSauce(sauce));
+      return this.pizza.sauces.map(normalizeSauce);
     },
     filling() {
-      return this.pizza.ingredients.map((filling) => normalizeFilling(filling));
+      return this.pizza.ingredients.map(normalizeFilling);
     },
     dough() {
-      return this.pizza.dough.map((dough) => normalizeDough(dough));
+      return this.pizza.dough.map(normalizeDough);
     },
   },
   methods: {

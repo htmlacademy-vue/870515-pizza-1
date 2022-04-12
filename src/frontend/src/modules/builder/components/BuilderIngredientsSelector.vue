@@ -82,28 +82,19 @@ export default {
     },
   },
   data: () => ({
-    ingredientsBag: [],
     MAX_INGREDIENTS_COUNT,
   }),
-  watch: {
-    ingredients: {
-      handler(ingredients) {
-        this.ingredientsBag = ingredients;
-      },
-      immediate: true,
-    },
-  },
   methods: {
     calcIngredientsCount(ingredient) {
-      return this.ingredientsBag.filter(({ id }) => id === ingredient.id)
-        .length;
+      return this.ingredients.filter(({ id }) => id === ingredient.id).length;
     },
     onAdd(ingredient) {
-      this.ingredientsBag.push(ingredient);
-      this.$emit("update:ingredients", this.ingredientsBag);
+      this.$emit("update:ingredients", [...this.ingredients, ingredient]);
     },
     onRemove(ingredientToRemove) {
-      const index = this.ingredientsBag.findIndex(
+      const ingredients = [...this.ingredients];
+
+      const index = ingredients.findIndex(
         (ingredient) => ingredientToRemove.id === ingredient.id
       );
 
@@ -111,8 +102,8 @@ export default {
         return;
       }
 
-      this.ingredientsBag.splice(index, 1);
-      this.$emit("update:ingredients", this.ingredientsBag);
+      ingredients.splice(index, 1);
+      this.$emit("update:ingredients", ingredients);
     },
   },
 };
