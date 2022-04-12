@@ -27,7 +27,6 @@
           <app-drop @drop="selectedIngredients.push($event)">
             <builder-pizza-view
               :dough="selectedDough"
-              :size="selectedSize"
               :sauce="selectedSauce"
               :ingredients="selectedIngredients"
             />

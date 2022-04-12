@@ -1,10 +1,10 @@
 <template>
   <div
-    :class="
-      dough && sauce
-        ? `pizza pizza--foundation--${dough.code}-${sauce.code}`
-        : ''
-    "
+    :class="{
+      [`pizza pizza--foundation--${dough.code}-${sauce.code}`]: true,
+      'pizza__filling--second': hasIngredientsCount(2),
+      'pizza__filling--third': hasIngredientsCount(3),
+    }"
   >
     <div class="pizza__wrapper">
       <div
@@ -24,12 +24,11 @@ export default {
   props: {
     dough: {
       type: Object,
-    },
-    size: {
-      type: Object,
+      required: true,
     },
     sauce: {
       type: Object,
+      required: true,
     },
     ingredients: {
       type: Array,
@@ -40,6 +39,18 @@ export default {
   computed: {
     uniqueIngredients() {
       return uniqBy(this.ingredients, "id");
+    },
+  },
+
+  methods: {
+    hasIngredientsCount(count) {
+      return this.uniqueIngredients.some((uniqueIngredient) => {
+        return (
+          this.ingredients.filter(
+            (ingredient) => ingredient.id === uniqueIngredient.id
+          ).length >= count
+        );
+      });
     },
   },
 };

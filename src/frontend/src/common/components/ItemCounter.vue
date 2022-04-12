@@ -19,6 +19,7 @@
       type="button"
       class="counter__button counter__button--plus"
       @click="onAdd"
+      :disabled="value >= max"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -31,6 +32,10 @@ export default {
   props: {
     value: {
       type: Number,
+    },
+    max: {
+      type: Number,
+      default: Infinity,
     },
   },
   methods: {

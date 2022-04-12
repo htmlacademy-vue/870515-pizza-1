@@ -28,7 +28,12 @@
               :key="ingredient.id"
               class="ingredients__item"
             >
-              <app-drag :transfer-data="ingredient">
+              <app-drag
+                :transfer-data="ingredient"
+                :draggable="
+                  calcIngredientsCount(ingredient) < MAX_INGREDIENTS_COUNT
+                "
+              >
                 <span :class="`filling filling--${ingredient.code}`">
                   {{ ingredient.name }}
                 </span>
@@ -36,6 +41,7 @@
 
               <item-counter
                 :value="calcIngredientsCount(ingredient)"
+                :max="MAX_INGREDIENTS_COUNT"
                 @remove="onRemove(ingredient)"
                 @add="onAdd(ingredient)"
                 class="ingredients__counter"
@@ -52,6 +58,9 @@
 import ItemCounter from "@/common/components/ItemCounter";
 import RadioButton from "@/common/components/RadioButton";
 import AppDrag from "@/common/components/AppDrag";
+
+const MAX_INGREDIENTS_COUNT = 3;
+
 export default {
   name: "BuilderIngredientsSelector",
   components: { AppDrag, RadioButton, ItemCounter },
@@ -74,6 +83,7 @@ export default {
   },
   data: () => ({
     ingredientsBag: [],
+    MAX_INGREDIENTS_COUNT,
   }),
   watch: {
     ingredients: {
