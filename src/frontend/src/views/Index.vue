@@ -1,60 +1,64 @@
 <template>
-  <form action="#" method="post">
-    <div class="content__wrapper">
-      <h1 class="title title--big">Конструктор пиццы</h1>
+  <div>
+    <router-view />
 
-      <builder-dough-selector v-model="selectedDough" :dough="dough" />
-      <builder-size-selector v-model="selectedSize" :sizes="sizes" />
-      <builder-ingredients-selector
-        :ingredients.sync="selectedIngredients"
-        :sauce.sync="selectedSauce"
-        :sauces="sauces"
-        :filling="filling"
-      />
+    <form action="#" method="post">
+      <div class="content__wrapper">
+        <h1 class="title title--big">Конструктор пиццы</h1>
 
-      <div class="content__pizza">
-        <label class="input">
-          <span class="visually-hidden">Название пиццы</span>
-          <input
-            v-model="name"
-            type="text"
-            name="pizza_name"
-            placeholder="Введите название пиццы"
-          />
-        </label>
+        <builder-dough-selector v-model="selectedDough" :dough="dough" />
+        <builder-size-selector v-model="selectedSize" :sizes="sizes" />
+        <builder-ingredients-selector
+          :ingredients.sync="selectedIngredients"
+          :sauce.sync="selectedSauce"
+          :sauces="sauces"
+          :filling="filling"
+        />
 
-        <div class="content__constructor">
-          <app-drop @drop="selectedIngredients.push($event)">
-            <builder-pizza-view
-              :dough="selectedDough"
-              :sauce="selectedSauce"
-              :ingredients="selectedIngredients"
+        <div class="content__pizza">
+          <label class="input">
+            <span class="visually-hidden">Название пиццы</span>
+            <input
+              v-model="name"
+              type="text"
+              name="pizza_name"
+              placeholder="Введите название пиццы"
             />
-          </app-drop>
-        </div>
+          </label>
 
-        <div class="content__result">
-          <p>
-            Итого:
-            <builder-price-counter
-              :dough="selectedDough"
-              :size="selectedSize"
-              :sauce="selectedSauce"
-              :ingredients="selectedIngredients"
-            />
-          </p>
-          <button
-            @click="addToCart"
-            type="button"
-            class="button"
-            :disabled="!name || selectedIngredients.length === 0"
-          >
-            Готовьте!
-          </button>
+          <div class="content__constructor">
+            <app-drop @drop="selectedIngredients.push($event)">
+              <builder-pizza-view
+                :dough="selectedDough"
+                :sauce="selectedSauce"
+                :ingredients="selectedIngredients"
+              />
+            </app-drop>
+          </div>
+
+          <div class="content__result">
+            <p>
+              Итого:
+              <builder-price-counter
+                :dough="selectedDough"
+                :size="selectedSize"
+                :sauce="selectedSauce"
+                :ingredients="selectedIngredients"
+              />
+            </p>
+            <button
+              @click="addToCart"
+              type="button"
+              class="button"
+              :disabled="!name || selectedIngredients.length === 0"
+            >
+              Готовьте!
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </template>
 
 <script>

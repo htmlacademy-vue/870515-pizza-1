@@ -2,20 +2,25 @@
   <div>
     <header class="header">
       <div class="header__logo">
-        <a href="#" class="logo">
+        <router-link to="/" class="logo">
           <img
             src="../assets/img/logo.svg"
             alt="V!U!E! Pizza logo"
             width="90"
             height="40"
           />
-        </a>
+        </router-link>
       </div>
       <div class="header__cart">
-        <a href="#">{{ totalPrice }} ₽</a>
+        <router-link to="/cart">{{ totalPrice }} ₽</router-link>
       </div>
       <div class="header__user">
-        <a href="#" class="header__login"><span>Войти</span></a>
+        <router-link to="/profile" class="header__login">
+          <span>Профиль</span>
+        </router-link>
+        <router-link to="/login" class="header__login">
+          <span>Войти</span>
+        </router-link>
       </div>
     </header>
 
