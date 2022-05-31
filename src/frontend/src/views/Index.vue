@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main class="content">
     <router-view />
 
     <form action="#" method="post">
@@ -58,7 +58,7 @@
         </div>
       </div>
     </form>
-  </div>
+  </main>
 </template>
 
 <script>
