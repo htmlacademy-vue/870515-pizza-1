@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-layout>
+    <app-layout :total-price="totalPrice">
       <router-view @addToCart="addToCard" />
     </app-layout>
   </div>

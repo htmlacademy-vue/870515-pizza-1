@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <app-header />
+    <app-header :total-price="totalPrice" />
 
     <main class="layout">
       <div class="layout__sidebar sidebar">
@@ -40,5 +40,10 @@ import AppHeader from "@/layouts/AppHeader";
 export default {
   name: "LayoutSidebar",
   components: { AppHeader },
+  props: {
+    totalPrice: {
+      type: Number,
+    },
+  },
 };
 </script>

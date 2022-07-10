@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <app-header />
+    <app-header :total-price="totalPrice" />
 
     <slot />
   </div>
@@ -12,5 +12,10 @@ import AppHeader from "@/layouts/AppHeader";
 export default {
   name: "LayoutDefault",
   components: { AppHeader },
+  props: {
+    totalPrice: {
+      type: Number,
+    },
+  },
 };
 </script>

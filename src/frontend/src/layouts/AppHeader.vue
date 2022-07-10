@@ -14,7 +14,7 @@
       <router-link to="/cart">{{ totalPrice || 0 }} ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link to="/profile" class="header__login">
+      <router-link to="/profile">
         <span>Профиль</span>
       </router-link>
       <router-link to="/login" class="header__login">

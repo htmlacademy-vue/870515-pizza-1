@@ -19,7 +19,7 @@ export default [
   },
   {
     path: "/orders",
-    name: "Cart",
+    name: "Order",
     component: () => import("../views/Orders.vue"),
     meta: { layout: "LayoutSidebar" },
   },

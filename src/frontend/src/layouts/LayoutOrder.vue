@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <app-header />
+    <app-header :total-price="totalPrice" />
 
     <form action="test.html" method="post" class="layout-form">
       <slot />
@@ -16,7 +16,7 @@
         </p>
 
         <div class="footer__price">
-          <b>Итого: 2 228 ₽</b>
+          <b>Итого: {{ totalPrice || 0 }} ₽</b>
         </div>
 
         <div class="footer__submit">
@@ -33,5 +33,10 @@ import AppHeader from "@/layouts/AppHeader";
 export default {
   name: "LayoutDefault",
   components: { AppHeader },
+  props: {
+    totalPrice: {
+      type: Number,
+    },
+  },
 };
 </script>
